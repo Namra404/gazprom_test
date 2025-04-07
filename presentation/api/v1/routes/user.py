@@ -1,4 +1,3 @@
-# src/routes/user.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -27,12 +26,12 @@ async def create_user(
 
 @router.post("/{user_id}/devices", response_model=DeviceResponse)
 async def create_device(
-        user_id: str,
+        user_id: uuid.UUID,
         device: DeviceCreate,
         db: AsyncSession = Depends(get_db)
 ):
     repo = UserRepository(db)
-    user = await repo.get(uuid.UUID(user_id))
+    user = await repo.get(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -55,7 +54,7 @@ async def analyze_by_user(
     # task = analyze_by_user_task.delay(user_id, period)
     repo = DeviceData(db)
     result = await repo.analyze_by_user(user_id, period)
-    return {"task_id": result}
+    return {"res": result}
 
 
 @router.get("/{user_id}/analyze-per-device")
@@ -72,4 +71,4 @@ async def analyze_by_user_per_device(
     # task = analyze_by_user_per_device_task.delay(user_id, period)
     repo = DeviceData(db)
     result = await repo.analyze_by_user_per_device(user_id, period)
-    return {"task_id": result}
+    return {"res": result}

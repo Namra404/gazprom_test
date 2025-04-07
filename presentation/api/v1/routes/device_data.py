@@ -45,7 +45,7 @@ async def analyze_device_data(
     # task = analyze_device_data_task.delay(device_id, period, name)
     repo = DeviceData(db)
     result = await repo.analyze(device_id, period, name)
-    return {"task_id": result}
+    return {"res": result}
 
 
 @router.get("/tasks/{task_id}")
@@ -56,4 +56,4 @@ async def get_task_result(task_id: str):
     elif task.state == "SUCCESS":
         return {"task_id": task_id, "status": "success", "result": task.result}
     else:
-        return {"task_id": task_id, "status": task.state}
+        return {"res": task_id, "status": task.state}
