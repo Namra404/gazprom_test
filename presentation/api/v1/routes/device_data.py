@@ -42,10 +42,10 @@ async def analyze_device_data(
     if not device:
         raise HTTPException(status_code=404, detail="Device not found")
 
-    task = analyze_device_data_task.delay(device_id, period, name)
-    # repo = DeviceData(db)
-    # result = await repo.analyze(device_id, period, name)
-    return {"task_id": task}
+    # task = analyze_device_data_task.delay(device_id, period, name)
+    repo = DeviceData(db)
+    result = await repo.analyze(device_id, period, name)
+    return {"task_id": result}
 
 
 @router.get("/tasks/{task_id}")
