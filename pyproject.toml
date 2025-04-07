@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "gazprom-test"
+version = "0.1.0"
+description = ""
+authors = ["Namra404 <armeno123@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sqlalchemy = "^2.0.40"
+alembic = "^1.15.2"
+python-dotenv = "^1.1.0"
+asyncpg = "^0.30.0"
+pydantic-settings = "^2.8.1"
+fastapi = "^0.115.12"
+celery = "^5.5.0"
+uvicorn = "^0.34.0"
+redis = "^5.2.1"
+psycopg2-binary = "^2.9.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
